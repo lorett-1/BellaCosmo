@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BellaCosmo - Cosméticos & Beleza Profissional Premium</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bella: {
+                            50: '#fdf2f4',
+                            100: '#fbe7eb',
+                            200: '#f7d0d8',
+                            500: '#e11d48',
+                            600: '#be123c',
+                            700: '#9f1239',
+                            800: '#881337',
+                            900: '#4c0519',
+                            gold: '#d97706',
+                            goldLight: '#fef3c7'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'glow': '0 0 25px -5px rgba(225, 29, 72, 0.25)',
+                        'card': '0 10px 30px -5px rgba(0, 0, 0, 0.05)',
+                        'floating': '0 20px 40px -15px rgba(0, 0, 0, 0.12)'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- QR Code Generator CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-panel { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
+    </style>
+</head>
+<body class="bg-slate-50/70 text-slate-800 antialiased selection:bg-rose-500 selection:text-white min-h-screen flex flex-col">
+
+    <!-- Top Promo Banner -->
+    <div class="bg-gradient-to-r from-rose-950 via-rose-900 to-rose-950 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium shadow-inner tracking-wide flex items-center justify-center gap-2">
+        <span class="inline-block animate-pulse">✨</span>
+        <span>Frete Grátis nas compras acima de R$ 199 | Use o cupom <strong class="bg-amber-400/20 text-amber-300 px-2 py-0.5 rounded border border-amber-400/30 font-bold uppercase tracking-wider text-[11px] ml-1">BELLA10</strong> para 10% OFF</span>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20 gap-4 sm:gap-6">
+                
+                <!-- Logo -->
+                <div class="flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                    <div class="bg-gradient-to-tr from-rose-600 via-rose-500 to-amber-500 p-2.5 rounded-2xl text-white shadow-md shadow-rose-500/20 group-hover:scale-105 transition-transform duration-300">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-black tracking-tight bg-gradient-to-r from-rose-600 via-rose-700 to-rose-900 bg-clip-text text-transparent">BellaCosmo</span>
+                        <span class="block text-[10px] uppercase tracking-widest text-slate-400 font-bold -mt-1">Beleza & Profissionais</span>
+                    </div>
+                </div>
+
+                <!-- Search Bar (Desktop) -->
+                <div class="flex-1 max-w-xl hidden md:block">
+                    <div class="relative group">
+                        <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="O que você procura? Ex: Shampoo, Batom, Sérum..." 
+                            class="w-full bg-slate-100/80 text-sm text-slate-800 placeholder-slate-400 rounded-full pl-11 pr-4 py-3 border border-transparent focus:border-rose-500 focus:bg-white focus:ring-4 focus:ring-rose-500/10 outline-none transition-all shadow-inner">
+                        <i data-lucide="search" class="w-5 h-5 text-slate-400 absolute left-3.5 top-3.5 group-focus-within:text-rose-600 transition-colors"></i>
+                    </div>
+                </div>
+
+                <!-- Action Nav Icons -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <button onclick="openWishlistDrawer()" class="relative p-2.5 text-slate-600 hover:text-rose-600 transition-colors rounded-full hover:bg-rose-50/80 border border-transparent hover:border-rose-100" title="Favoritos">
+                        <i data-lucide="heart" class="w-5 h-5"></i>
+                        <span id="wishlistCount" class="absolute top-1 right-1 bg-rose-600 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold hidden shadow-sm">0</span>
+                    </button>
+                    
+                    <button onclick="handleUserAccountClick()" id="accountNavBtn" class="flex items-center gap-2.5 p-2 px-3 text-slate-700 hover:text-rose-600 transition-all rounded-full hover:bg-slate-100/80 border border-slate-200/80">
+                        <div class="w-7 h-7 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center">
+                            <i data-lucide="user" class="w-4 h-4"></i>
+                        </div>
+                        <div class="text-left text-xs hidden lg:block pr-1">
+                            <span id="authStatusText" class="block text-slate-400 font-normal">Olá, Visitante</span>
+                            <span id="authActionText" class="font-bold text-slate-800 leading-tight block">Minha Conta</span>
+                        </div>
+                    </button>
+
+                    <button onclick="openCartDrawer()" class="relative bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 text-white px-4 py-2.5 rounded-full flex items-center gap-2.5 shadow-md shadow-rose-600/25 transition-all transform active:scale-95 font-medium">
+                        <div class="relative">
+                            <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                            <span id="cartCountBadge" class="absolute -top-2 -right-2 bg-amber-400 text-slate-900 text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-black shadow-sm">0</span>
+                        </div>
+                        <span class="text-xs font-bold hidden md:inline border-l border-white/20 pl-2 ml-0.5" id="cartTotalHeader">R$ 0,00</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Search Bar -->
+            <div class="pb-3.5 md:hidden">
+                <div class="relative">
+                    <input type="text" oninput="handleSearch(this.value)" placeholder="Pesquisar produtos..." 
+                        class="w-full bg-slate-100 text-sm rounded-full pl-10 pr-4 py-2.5 border border-transparent focus:bg-white focus:border-rose-500 outline-none shadow-inner">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Navigation Bar -->
+        <div class="border-t border-slate-100 bg-white/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <nav class="flex items-center gap-2 sm:gap-6 overflow-x-auto py-2.5 no-scrollbar text-xs sm:text-sm font-medium whitespace-nowrap">
+                    <button onclick="filterByCategory('todos')" class="cat-btn text-rose-600 font-bold border-b-2 border-rose-600 pb-1 px-1 transition-colors">✨ Todos os Produtos</button>
+                    <button onclick="filterByCategory('Cabelos')" class="cat-btn text-slate-600 hover:text-rose-600 pb-1 px-1 transition-colors">💇‍♀️ Cabelos</button>
+                    <button onclick="filterByCategory('Skincare')" class="cat-btn text-slate-600 hover:text-rose-600 pb-1 px-1 transition-colors">🌿 Skincare</button>
+                    <button onclick="filterByCategory('Maquiagem')" class="cat-btn text-slate-600 hover:text-rose-600 pb-1 px-1 transition-colors">💄 Maquiagem</button>
+                    <button onclick="filterByCategory('Perfumaria')" class="cat-btn text-slate-600 hover:text-rose-600 pb-1 transition-colors">🌸 Perfumaria</button>
+                    <button onclick="filterByCategory('Unhas')" class="cat-btn text-slate-600 hover:text-rose-600 pb-1 transition-colors">💅 Unhas</button>
+                    <button onclick="filterByCategory('Profissional')" class="cat-btn text-amber-600 hover:text-amber-700 pb-1 px-1.5 py-0.5 rounded-full bg-amber-50 border border-amber-200 transition-colors font-bold flex items-center gap-1">⚡ Profissional Salão</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner Section -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="md:col-span-2 relative rounded-3xl overflow-hidden bg-gradient-to-r from-slate-900 via-rose-950 to-rose-900 text-white p-8 sm:p-12 flex flex-col justify-center min-h-[340px] shadow-xl border border-rose-900/30">
+                <div class="absolute -right-12 -bottom-12 opacity-15 pointer-events-none text-rose-400">
+                    <i data-lucide="sparkles" class="w-96 h-96"></i>
+                </div>
+                <div class="relative z-10 max-w-lg space-y-4">
+                    <span class="bg-amber-400/90 text-slate-950 text-[11px] font-black uppercase tracking-wider px-3.5 py-1 rounded-full inline-block shadow-sm">Festival de Skincare</span>
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">Renove sua pele com até <span class="text-amber-300 underline decoration-amber-400/50">40% OFF</span></h1>
+                    <p class="text-rose-100/90 text-sm sm:text-base font-normal leading-relaxed">Os melhores séruns, hidratantes e protetores solares recomendados por dermatologistas profissionais.</p>
+                    <div class="pt-2">
+                        <button onclick="filterByCategory('Skincare')" class="bg-white text-slate-900 font-bold text-sm px-6 py-3.5 rounded-full hover:bg-amber-300 transition-all shadow-lg hover:shadow-xl inline-flex items-center gap-2.5 group">
+                            Aproveitar Ofertas <i data-lucide="arrow-right" class="w-4 h-4 text-rose-600 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-6">
+                <div class="bg-gradient-to-br from-amber-600 to-amber-800 text-white p-6 rounded-3xl shadow-md relative overflow-hidden flex flex-col justify-between border border-amber-500/20 group hover:shadow-lg transition">
+                    <div>
+                        <span class="bg-white/20 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full mb-2 inline-block">Linha Salão</span>
+                        <h2 class="text-xl font-extrabold mb-1 tracking-tight">Especial Profissional</h2>
+                        <p class="text-amber-100 text-xs">Kits completos de tratamento capilar com preço de atacado.</p>
+                    </div>
+                    <button onclick="filterByCategory('Profissional')" class="mt-4 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1 hover:text-amber-200 transition">
+                        Ver Linha <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
+
+                <div class="bg-gradient-to-br from-rose-600 to-pink-700 text-white p-6 rounded-3xl shadow-md relative overflow-hidden flex flex-col justify-between border border-rose-500/20 group hover:shadow-lg transition">
+                    <div>
+                        <span class="bg-white/20 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full mb-2 inline-block">Lançamento 2026</span>
+                        <h2 class="text-xl font-extrabold mb-1 tracking-tight">Make Glow Series</h2>
+                        <p class="text-rose-100 text-xs">Novas paletas e batons matte de altíssima fixação.</p>
+                    </div>
+                    <button onclick="filterByCategory('Maquiagem')" class="mt-4 text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1 hover:text-rose-200 transition">
+                        Explorar Coleção <i data-lucide="chevron-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Catalog Section -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 bg-white p-5 rounded-2xl shadow-xs border border-slate-200/80">
+            <div>
+                <h2 id="catalogTitle" class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Todos os Produtos</h2>
+                <p id="productCount" class="text-xs sm:text-sm text-slate-500 mt-0.5">Mostrando produtos disponíveis no catálogo</p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3">
+                <select id="brandFilter" onchange="handleBrandFilter(this.value)" class="bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-700 rounded-xl px-3.5 py-2.5 outline-none focus:border-rose-500 focus:bg-white font-medium cursor-pointer">
+                    <option value="all">Todas as Marcas</option>
+                    <option value="BellaProfissional">BellaProfissional</option>
+                    <option value="L'Or Luxe">L'Or Luxe</option>
+                    <option value="DermoPure">DermoPure</option>
+                    <option value="GlowMake">GlowMake</option>
+                    <option value="AromaBella">AromaBella</option>
+                </select>
+
+                <select id="sortOrder" onchange="handleSort(this.value)" class="bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-700 rounded-xl px-3.5 py-2.5 outline-none focus:border-rose-500 focus:bg-white font-medium cursor-pointer">
+                    <option value="featured">Mais Vendidos / Destaque</option>
+                    <option value="low-price">Menor Preço</option>
+                    <option value="high-price">Maior Preço</option>
+                    <option value="rating">Melhor Avaliação</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar Filters -->
+            <aside class="hidden lg:block lg:col-span-1 space-y-6 bg-white p-6 rounded-3xl shadow-xs border border-slate-200/80 h-fit sticky top-28">
+                <div>
+                    <h3 class="font-bold text-slate-900 text-base mb-3 flex items-center justify-between">
+                        <span class="flex items-center gap-2">
+                            <i data-lucide="sliders-horizontal" class="w-4 h-4 text-rose-600"></i> Filtros
+                        </span>
+                        <button onclick="resetFilters()" class="text-[11px] text-rose-600 font-semibold hover:underline">Limpar</button>
+                    </h3>
+                    <hr class="border-slate-100">
+                </div>
+
+                <div>
+                    <h4 class="font-semibold text-xs text-slate-800 uppercase tracking-wider mb-3">Faixa de Preço</h4>
+                    <div class="space-y-2.5 text-xs text-slate-600 font-medium">
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-rose-600 transition">
+                            <input type="radio" name="priceRange" value="all" checked onchange="handlePriceFilter('all')" class="accent-rose-600 focus:ring-rose-500">
+                            <span>Todos os preços</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-rose-600 transition">
+                            <input type="radio" name="priceRange" value="0-50" onchange="handlePriceFilter('0-50')" class="accent-rose-600 focus:ring-rose-500">
+                            <span>Até R$ 50,00</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-rose-600 transition">
+                            <input type="radio" name="priceRange" value="50-150" onchange="handlePriceFilter('50-150')" class="accent-rose-600 focus:ring-rose-500">
+                            <span>R$ 50,00 a R$ 150,00</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-rose-600 transition">
+                            <input type="radio" name="priceRange" value="150+" onchange="handlePriceFilter('150+')" class="accent-rose-600 focus:ring-rose-500">
+                            <span>Acima de R$ 150,00</span>
+                        </label>
+                    </div>
+                </div>
+
+                <hr class="border-slate-100">
+
+                <div>
+                    <h4 class="font-semibold text-xs text-slate-800 uppercase tracking-wider mb-3">Benefícios & Selos</h4>
+                    <div class="space-y-2.5 text-xs text-slate-600 font-medium">
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-rose-600 transition">
+                            <input type="checkbox" onchange="toggleBenefitFilter('cruelty-free')" class="rounded text-rose-600 focus:ring-rose-500 border-slate-300">
+                            <span>Cruelty-Free (Não testado)</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-rose-600 transition">
+                            <input type="checkbox" onchange="toggleBenefitFilter('vegan')" class="rounded text-rose-600 focus:ring-rose-500 border-slate-300">
+                            <span>Fórmula Vegana</span>
+                        </label>
+                        <label class="flex items-center gap-2.5 cursor-pointer hover:text-rose-600 transition">
+                            <input type="checkbox" onchange="toggleBenefitFilter('organic')" class="rounded text-rose-600 focus:ring-rose-500 border-slate-300">
+                            <span>Ativos Orgânicos</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button onclick="resetFilters()" class="w-full bg-slate-100 hover:bg-slate-200/80 text-slate-700 font-semibold py-2.5 rounded-xl text-xs transition">
+                    Redefinir Filtros
+                </button>
+            </aside>
+
+            <!-- Product Grid -->
+            <div class="lg:col-span-3">
+                <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+
+                <div id="emptyState" class="hidden text-center py-16 bg-white rounded-3xl border border-slate-200/80 p-8 shadow-xs">
+                    <div class="bg-rose-50 text-rose-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="search-x" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-1">Nenhum produto encontrado</h3>
+                    <p class="text-slate-500 text-xs sm:text-sm mb-6">Tente alterar os termos de busca ou remover os filtros aplicados.</p>
+                    <button onclick="resetFilters()" class="bg-rose-600 hover:bg-rose-700 text-white font-semibold text-xs px-6 py-3 rounded-xl transition shadow">
+                        Ver Todos os Produtos
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cart Drawer -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-xs transition-opacity" onclick="closeCartDrawer()"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+                <div class="flex items-center justify-between p-5 border-b border-slate-100 bg-slate-50/50">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center">
+                            <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                        </div>
+                        <h2 class="text-base font-bold text-slate-900">Sua Sacola (<span id="cartItemCount">0</span>)</h2>
+                    </div>
+                    <button onclick="closeCartDrawer()" class="p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <div id="cartItemsList" class="flex-1 overflow-y-auto p-5 space-y-4 divide-y divide-slate-100"></div>
+
+                <div class="border-t border-slate-100 p-5 bg-slate-50/80 space-y-3.5">
+                    <div class="flex gap-2">
+                        <input type="text" id="couponInput" placeholder="Cupom (ex: BELLA10)" class="flex-1 bg-white border border-slate-200 text-xs rounded-xl px-3.5 py-2.5 uppercase outline-none focus:border-rose-500 font-semibold tracking-wider">
+                        <button onclick="applyCoupon()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition">Aplicar</button>
+                    </div>
+                    <div id="couponMessage" class="text-xs font-semibold text-emerald-600 hidden"></div>
+
+                    <div class="space-y-2 text-xs">
+                        <div class="flex justify-between text-slate-600">
+                            <span>Subtotal</span>
+                            <span id="cartSubtotal" class="font-medium text-slate-800">R$ 0,00</span>
+                        </div>
+                        <div id="discountRow" class="flex justify-between text-emerald-600 hidden">
+                            <span>Desconto Cupom</span>
+                            <span id="cartDiscount" class="font-semibold">-R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between text-slate-600">
+                            <span>Frete Estimado</span>
+                            <span id="cartShipping" class="font-bold text-emerald-600">Grátis</span>
+                        </div>
+                        <div class="flex justify-between text-base font-extrabold text-slate-900 pt-2 border-t border-slate-200">
+                            <span>Total</span>
+                            <span id="cartFinalTotal" class="text-rose-600">R$ 0,00</span>
+                        </div>
+                    </div>
+
+                    <button onclick="openCheckoutModal()" id="checkoutBtn" class="w-full bg-rose-600 hover:bg-rose-700 text-white text-sm font-bold py-3.5 rounded-xl shadow-md shadow-rose-600/20 transition flex items-center justify-center gap-2">
+                        Ir para o Pagamento <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Drawer -->
+    <div id="wishlistDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-slate-950/60 backdrop-blur-xs transition-opacity" onclick="closeWishlistDrawer()"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+                <div class="flex items-center justify-between p-5 border-b border-slate-100 bg-rose-50/50">
+                    <div class="flex items-center gap-2.5 text-rose-700">
+                        <div class="w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center">
+                            <i data-lucide="heart" class="w-4 h-4 fill-rose-600"></i>
+                        </div>
+                        <h2 class="text-base font-bold">Meus Favoritos (<span id="wishlistDrawerCount">0</span>)</h2>
+                    </div>
+                    <button onclick="closeWishlistDrawer()" class="p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div id="wishlistItemsList" class="flex-1 overflow-y-auto p-5 space-y-4 divide-y divide-slate-100"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs transition-opacity" onclick="closeProductModal()"></div>
+            <div class="inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
+                <div class="absolute top-4 right-4 z-10">
+                    <button onclick="closeProductModal()" class="bg-white/90 backdrop-blur p-2 rounded-full text-slate-500 hover:text-slate-900 shadow-sm border border-slate-100">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div id="modalContent" class="p-6 sm:p-8"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Professional Reviews & Comments Modal -->
+    <div id="reviewsModal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-slate-950/70 backdrop-blur-xs transition-opacity" onclick="closeReviewsModal()"></div>
+            <div class="inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full p-6 sm:p-8 relative z-50">
+                <div class="absolute top-4 right-4">
+                    <button onclick="closeReviewsModal()" class="text-slate-400 hover:text-slate-600 p-2 rounded-full hover:bg-slate-100"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
+                
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="bg-amber-100 p-3 rounded-2xl text-amber-600 shadow-inner">
+                        <i data-lucide="star" class="w-6 h-6 fill-amber-400"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-black text-slate-900">Avaliações dos Clientes</h3>
+                        <p id="reviewsProductName" class="text-xs text-slate-500 line-clamp-1 font-medium">Nome do Produto</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+                    <div class="text-center sm:text-left sm:border-r border-slate-200 pr-2">
+                        <span id="revModalAverage" class="text-4xl font-black text-slate-900">4.9</span>
+                        <div class="flex justify-center sm:justify-start gap-1 text-amber-500 my-1">
+                            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                        </div>
+                        <span id="revModalTotalCount" class="text-[11px] text-slate-500 font-medium">Média baseada em 128 avaliações</span>
+                    </div>
+                    <div class="col-span-2 space-y-1.5 text-xs">
+                        <div class="flex items-center gap-2">
+                            <span class="w-10 text-slate-600 font-bold">5 estrelas</span>
+                            <div class="flex-1 bg-slate-200 h-2 rounded-full overflow-hidden"><div class="bg-amber-400 h-full w-[88%]"></div></div>
+                            <span class="w-8 text-right text-slate-400">88%</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-10 text-slate-600 font-bold">4 estrelas</span>
+                            <div class="flex-1 bg-slate-200 h-2 rounded-full overflow-hidden"><div class="bg-amber-400 h-full w-[9%]"></div></div>
+                            <span class="w-8 text-right text-slate-400">9%</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-10 text-slate-600 font-bold">3 estrelas</span>
+                            <div class="flex-1 bg-slate-200 h-2 rounded-full overflow-hidden"><div class="bg-amber-400 h-full w-[2%]"></div></div>
+                            <span class="w-8 text-right text-slate-400">2%</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="w-10 text-slate-600 font-bold">1-2 est.</span>
+                            <div class="flex-1 bg-slate-200 h-2 rounded-full overflow-hidden"><div class="bg-amber-400 h-full w-[1%]"></div></div>
+                            <span class="w-8 text-right text-slate-400">1%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 id="reviewsListTitle" class="text-xs font-bold uppercase tracking-wider text-slate-700 mb-3">Comentários Verificados</h4>
+                <div id="reviewsListContainer" class="space-y-4 max-h-80 overflow-y-auto pr-2 divide-y divide-slate-100 my-2"></div>
+
+                <div class="pt-4 border-t border-slate-100 mt-4 flex justify-between items-center">
+                    <span class="text-[11px] text-emerald-600 font-semibold flex items-center gap-1">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i> 100% de avaliações de clientes reais
+                    </span>
+                    <button onclick="closeReviewsModal()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-6 py-2.5 rounded-xl transition shadow">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Authentication Modal -->
+    <div id="authModal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs transition-opacity" onclick="closeAuthModal()"></div>
+            <div class="inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full p-6 sm:p-8">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-rose-100 p-2.5 rounded-2xl text-rose-600">
+                            <i data-lucide="user" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 id="authModalTitle" class="text-lg font-bold text-slate-900">Entrar na BellaCosmo</h3>
+                            <p class="text-xs text-slate-400">Acesse sua conta para continuar</p>
+                        </div>
+                    </div>
+                    <button onclick="closeAuthModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
+                
+                <div id="authErrorMsg" class="mb-4 p-3 bg-rose-50 text-rose-600 text-xs rounded-xl font-medium hidden border border-rose-200"></div>
+
+                <div id="loggedInView" class="hidden space-y-4">
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs space-y-1">
+                        <p class="text-slate-500">Conectado como:</p>
+                        <p id="loggedInEmail" class="font-bold text-slate-900 text-sm">email@exemplo.com</p>
+                    </div>
+                    <button onclick="handleLogout()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3.5 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                        <i data-lucide="log-out" class="w-4 h-4"></i> Sair da Conta / Sair do Site
+                    </button>
+                </div>
+
+                <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                    <div id="authNameGroup" class="hidden">
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nome Completo</label>
+                        <input type="text" id="authName" placeholder="Seu nome completo" class="w-full bg-slate-50 border border-slate-200 text-sm rounded-xl px-4 py-3 outline-none focus:border-rose-500 focus:bg-white transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">E-mail</label>
+                        <input type="email" id="authEmail" placeholder="seu.email@exemplo.com" class="w-full bg-slate-50 border border-slate-200 text-sm rounded-xl px-4 py-3 outline-none focus:border-rose-500 focus:bg-white transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Senha</label>
+                        <input type="password" id="authPassword" placeholder="••••••••" class="w-full bg-slate-50 border border-slate-200 text-sm rounded-xl px-4 py-3 outline-none focus:border-rose-500 focus:bg-white transition">
+                    </div>
+                    <button type="submit" id="authSubmitBtn" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3.5 rounded-xl shadow-md transition">
+                        Entrar na Conta
+                    </button>
+                </form>
+
+                <div id="socialLoginsContainer" class="mt-5 space-y-3">
+                    <div class="relative flex py-2 items-center">
+                        <div class="flex-grow border-t border-slate-200"></div>
+                        <span class="flex-shrink mx-4 text-[11px] text-slate-400 uppercase font-bold tracking-wider">ou entre com</span>
+                        <div class="flex-grow border-t border-slate-200"></div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <button onclick="openSocialAuthModal('Google')" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.18v3.15C3.17 21.32 7.23 24 12 24z"/><path fill="#FBBC05" d="M5.27 14.24c-.25-.72-.38-1.5-.38-2.24s.13-1.52.38-2.24V6.61H1.18C.43 8.13 0 9.87 0 12s.43 3.87 1.18 5.39l4.09-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.23 0 3.17 2.68 1.18 6.61l4.09 3.15c.95-2.85 3.6-4.96 6.73-4.96z"/></svg>
+                            Google
+                        </button>
+                        <button onclick="openSocialAuthModal('Apple')" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition">
+                            <svg class="w-4 h-4 fill-slate-900" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.95 5.86c.63-.77 1.06-1.84.94-2.91-.92.04-2.03.62-2.69 1.38-.58.67-1.09 1.75-.95 2.8 1.03.08 2.07-.51 2.7-1.27z"/></svg>
+                            Apple
+                        </button>
+                        <button onclick="openSocialAuthModal('Facebook')" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition">
+                            <svg class="w-4 h-4 fill-[#1877F2]" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            Facebook
+                        </button>
+                    </div>
+                </div>
+
+                <div id="authSwitchContainer" class="mt-6 text-center text-xs text-slate-600 border-t border-slate-100 pt-4">
+                    <p id="authSwitchText">Não tem uma conta? <button onclick="toggleAuthMode()" class="text-rose-600 font-bold hover:underline">Cadastre-se</button></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Interactive Auth Modal -->
+    <div id="socialAuthModal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-slate-950/70 backdrop-blur-xs transition-opacity" onclick="closeSocialAuthModal()"></div>
+            <div class="inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full p-6 sm:p-8 relative">
+                <div class="absolute top-4 right-4">
+                    <button onclick="closeSocialAuthModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
+                <div class="text-center space-y-4">
+                    <div id="socialModalIcon" class="w-14 h-14 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center mx-auto shadow-inner">
+                        <i data-lucide="globe" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <h3 id="socialModalTitle" class="text-lg font-bold text-slate-900">Entrar com Provedor</h3>
+                        <p class="text-xs text-slate-500 mt-1">Insira a sua conta para autorizar o acesso à BellaCosmo</p>
+                    </div>
+                    <div class="space-y-3 pt-2 text-left">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Conta / E-mail</label>
+                            <input type="email" id="socialEmailInput" placeholder="seu.email@provedor.com" class="w-full bg-slate-50 border border-slate-200 text-sm rounded-xl px-4 py-3 outline-none focus:border-rose-500 focus:bg-white transition">
+                        </div>
+                        <button onclick="confirmSocialAuth()" id="socialAuthConfirmBtn" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3.5 rounded-xl shadow-md transition text-xs sm:text-sm flex items-center justify-center gap-2">
+                            Autorizar e Entrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Multi-method Checkout Modal -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs transition-opacity" onclick="closeCheckoutModal()"></div>
+            <div class="inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full p-6 sm:p-8">
+                
+                <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-rose-600 text-white p-2.5 rounded-2xl shadow-md">
+                            <i data-lucide="shield-check" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-black text-slate-900">Finalizar Compra Segura</h3>
+                            <p class="text-xs text-slate-500">Checkout Criptografado SSL 256-bit</p>
+                        </div>
+                    </div>
+                    <button onclick="closeCheckoutModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-6 h-6"></i></button>
+                </div>
+
+                <!-- Multi-step Checkout Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Left Payment Form -->
+                    <div class="lg:col-span-2 space-y-6">
+                        
+                        <!-- Delivery Address Card & Editor -->
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-bold text-xs uppercase tracking-wider text-slate-800 flex items-center gap-2">
+                                    <i data-lucide="map-pin" class="w-4 h-4 text-rose-600"></i> Endereço de Entrega
+                                </h4>
+                                <button type="button" onclick="useCurrentLocation()" class="bg-rose-50 hover:bg-rose-100 text-rose-700 text-[11px] font-bold px-3 py-1.5 rounded-xl border border-rose-200 transition flex items-center gap-1.5">
+                                    <i data-lucide="locate-fixed" class="w-3.5 h-3.5"></i> Usar Minha Localização
+                                </button>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-2.5">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-600 uppercase mb-0.5">CEP</label>
+                                    <input type="text" id="addrCep" value="01310-100" class="w-full bg-white border border-slate-200 text-xs rounded-xl px-3 py-2 outline-none focus:border-rose-500 font-mono">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-600 uppercase mb-0.5">Número</label>
+                                    <input type="text" id="addrNumber" value="1000" class="w-full bg-white border border-slate-200 text-xs rounded-xl px-3 py-2 outline-none focus:border-rose-500">
+                                </div>
+                                <div class="col-span-2">
+                                    <label class="block text-[10px] font-bold text-slate-600 uppercase mb-0.5">Logradouro / Rua</label>
+                                    <input type="text" id="addrStreet" value="Av. Paulista" class="w-full bg-white border border-slate-200 text-xs rounded-xl px-3 py-2 outline-none focus:border-rose-500">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-600 uppercase mb-0.5">Bairro</label>
+                                    <input type="text" id="addrNeighborhood" value="Bela Vista" class="w-full bg-white border border-slate-200 text-xs rounded-xl px-3 py-2 outline-none focus:border-rose-500">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-slate-600 uppercase mb-0.5">Cidade / UF</label>
+                                    <input type="text" id="addrCityState" value="São Paulo - SP" class="w-full bg-white border border-slate-200 text-xs rounded-xl px-3 py-2 outline-none focus:border-rose-500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payment Methods Selector Tabs -->
+                        <div>
+                            <h4 class="font-bold text-xs uppercase tracking-wider text-slate-800 mb-3 flex items-center gap-2">
+                                <i data-lucide="credit-card" class="w-4 h-4 text-rose-600"></i> Forma de Pagamento
+                            </h4>
+                            
+                            <div class="grid grid-cols-3 gap-2 mb-4">
+                                <button type="button" onclick="selectPaymentMethod('pix')" id="payBtnPix" class="pay-method-btn p-3 rounded-2xl border-2 border-rose-600 bg-rose-50 text-rose-700 font-bold text-xs flex flex-col items-center gap-1.5 transition-all">
+                                    <i data-lucide="qr-code" class="w-5 h-5"></i> PIX (Instantâneo)
+                                </button>
+                                <button type="button" onclick="selectPaymentMethod('card')" id="payBtnCard" class="pay-method-btn p-3 rounded-2xl border-2 border-slate-200 bg-white text-slate-700 font-bold text-xs flex flex-col items-center gap-1.5 transition-all hover:border-slate-300">
+                                    <i data-lucide="credit-card" class="w-5 h-5"></i> Cartão de Crédito
+                                </button>
+                                <button type="button" onclick="selectPaymentMethod('boleto')" id="payBtnBoleto" class="pay-method-btn p-3 rounded-2xl border-2 border-slate-200 bg-white text-slate-700 font-bold text-xs flex flex-col items-center gap-1.5 transition-all hover:border-slate-300">
+                                    <i data-lucide="barcode" class="w-5 h-5"></i> Boleto
+                                </button>
+                            </div>
+
+                            <!-- PIX Payment View -->
+                            <div id="payFormPix" class="bg-gradient-to-br from-emerald-50 to-teal-50 p-6 rounded-2xl border border-emerald-200 text-center space-y-4">
+                                <div class="inline-block bg-white p-3 rounded-2xl shadow-md border border-emerald-100 flex justify-center items-center" id="qrcodeContainer"></div>
+                                <div class="bg-emerald-100/70 p-3 rounded-xl border border-emerald-200 text-emerald-900 text-xs font-bold">
+                                    Chave PIX (Telefone): <span class="font-mono text-sm block mt-0.5 text-emerald-700">(11) 94893-6479</span>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider block">PIX Copia e Cola</span>
+                                    <div class="flex gap-2 mt-2">
+                                        <input type="text" id="pixCodeInput" readonly class="bg-white border border-emerald-200 text-[11px] font-mono p-2.5 rounded-xl flex-1 outline-none text-slate-700">
+                                        <button onclick="copyPixCode()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-4 rounded-xl transition-colors">Copiar</button>
+                                    </div>
+                                </div>
+                                <div class="text-xs text-emerald-700 flex items-center justify-center gap-2 font-medium">
+                                    <i data-lucide="clock" class="w-4 h-4 animate-spin"></i> Expira em: <span id="pixTimer" class="font-bold text-emerald-900">14:59</span>
+                                </div>
+                                <button onclick="confirmSimulatedPayment('PIX')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3 rounded-xl shadow-md transition-all text-sm">
+                                    Já fiz o pagamento via PIX
+                                </button>
+                            </div>
+
+                            <!-- Credit Card Payment View -->
+                            <div id="payFormCard" class="hidden bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Número do Cartão</label>
+                                    <div class="relative">
+                                        <input type="text" id="cardNum" placeholder="0000 0000 0000 0000" oninput="formatCardNum(this)" maxlength="19" class="w-full bg-white border border-slate-200 text-sm rounded-xl px-4 py-2.5 outline-none focus:border-rose-500 font-mono">
+                                        <span id="cardBrandBadge" class="absolute right-3 top-2.5 text-xs font-bold text-rose-600 uppercase"></span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nome Impresso no Cartão</label>
+                                    <input type="text" id="cardHolder" placeholder="NOME COMO NO CARTÃO" class="w-full bg-white border border-slate-200 text-sm rounded-xl px-4 py-2.5 uppercase outline-none focus:border-rose-500">
+                                </div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Validade (MM/AA)</label>
+                                        <input type="text" id="cardExp" placeholder="MM/AA" oninput="formatCardExp(this)" maxlength="5" class="w-full bg-white border border-slate-200 text-sm rounded-xl px-4 py-2.5 outline-none focus:border-rose-500 font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">CVV</label>
+                                        <input type="text" id="cardCvc" placeholder="123" maxlength="4" class="w-full bg-white border border-slate-200 text-sm rounded-xl px-4 py-2.5 outline-none focus:border-rose-500 font-mono">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Parcelamento</label>
+                                    <select id="cardInstallments" class="w-full bg-white border border-slate-200 text-sm rounded-xl px-4 py-2.5 outline-none focus:border-rose-500 font-medium">
+                                    </select>
+                                </div>
+                                <button onclick="processCardPayment()" id="payCardSubmitBtn" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-extrabold py-3.5 rounded-xl shadow-lg transition-all text-sm mt-2">
+                                    Pagar com Cartão de Crédito
+                                </button>
+                            </div>
+
+                            <!-- Boleto View -->
+                            <div id="payFormBoleto" class="hidden bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4 text-center">
+                                <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                                    <i data-lucide="barcode" class="w-16 h-16 mx-auto text-slate-800"></i>
+                                    <span id="boletoCodeText" class="text-xs font-mono text-slate-600 block break-all font-bold">34191.79001 01043.510047 91020.150008 8 0000015000</span>
+                                </div>
+                                <p class="text-xs text-slate-500 leading-relaxed">
+                                    O boleto será gerado para pagamento em até 3 dias úteis em qualquer banco ou aplicativo financeiro.
+                                </p>
+                                <button onclick="confirmSimulatedPayment('Boleto')" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold py-3 rounded-xl shadow transition-all text-sm">
+                                    Gerar Boleto & Concluir Pedido
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Right Summary Sidebar -->
+                    <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 h-fit space-y-4">
+                        <h4 class="font-bold text-xs uppercase tracking-wider text-slate-800 border-b border-slate-200 pb-2">Resumo da Compra</h4>
+                        <div id="checkoutSummaryItems" class="max-h-48 overflow-y-auto space-y-2 text-xs divide-y divide-slate-100"></div>
+                        <div class="border-t border-slate-200 pt-3 space-y-1.5 text-xs">
+                            <div class="flex justify-between text-slate-600">
+                                <span>Subtotal:</span>
+                                <span id="checkoutSubtotal" class="font-semibold text-slate-800">R$ 0,00</span>
+                            </div>
+                            <div class="flex justify-between text-emerald-600 font-medium">
+                                <span>Frete:</span>
+                                <span id="checkoutShipping" class="font-bold">GRÁTIS</span>
+                            </div>
+                            <div class="flex justify-between text-base font-extrabold text-slate-900 pt-2 border-t border-slate-200">
+                                <span>Total Final:</span>
+                                <span id="checkoutTotal" class="text-rose-600">R$ 0,00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Success Confirmation Modal -->
+    <div id="orderSuccessModal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-slate-950/70 backdrop-blur-xs transition-opacity"></div>
+            <div class="inline-block align-bottom bg-white rounded-3xl text-center overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full p-8">
+                <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                    <i data-lucide="check-circle-2" class="w-12 h-12"></i>
+                </div>
+                <h3 class="text-2xl font-black text-slate-900 mb-2">Pedido Confirmado!</h3>
+                <p class="text-slate-600 text-xs sm:text-sm mb-6">Parabéns! O seu pedido <strong id="successOrderNum" class="text-rose-600">#BC-98421</strong> foi aprovado com sucesso.</p>
+                <div class="bg-slate-50 p-4 rounded-2xl text-left text-xs text-slate-600 space-y-2 mb-6 border border-slate-200">
+                    <p><strong>Método de Pagamento:</strong> <span id="successPayMethod" class="font-bold text-slate-800">PIX</span></p>
+                    <p><strong>Status:</strong> <span class="text-emerald-600 font-bold">Aprovado / Em Separação</span></p>
+                    <p><strong>Prazo estimado:</strong> 3 a 5 dias úteis</p>
+                </div>
+                <button onclick="finishOrderFlow()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-extrabold py-3.5 rounded-2xl shadow-lg transition-all">
+                    Voltar às Compras
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Info Modal -->
+    <div id="footerInfoModal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs transition-opacity" onclick="closeFooterInfoModal()"></div>
+            <div class="inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full p-6 sm:p-8 relative">
+                <div class="absolute top-4 right-4">
+                    <button onclick="closeFooterInfoModal()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
+                <div id="footerModalContent" class="space-y-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-3 pointer-events-none"></div>
+
+    <!-- Footer with Contact Types and Instagram Link -->
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 mt-16 text-xs sm:text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2 text-white">
+                        <div class="bg-gradient-to-tr from-rose-600 to-amber-500 p-1.5 rounded-xl text-white">
+                            <i data-lucide="sparkles" class="w-4 h-4"></i>
+                        </div>
+                        <span class="text-xl font-extrabold tracking-tight">BellaCosmo</span>
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        Sua loja de cosméticos premium e produtos capilares profissionais. Atendendo salões e apaixonados por beleza em todo o Brasil.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-xs uppercase tracking-wider mb-3">Links Rápidos</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="javascript:void(0)" onclick="openFooterInfoModal('about')" class="hover:text-rose-400 transition">Sobre Nós</a></li>
+                        <li><a href="javascript:void(0)" onclick="openFooterInfoModal('shipping')" class="hover:text-rose-400 transition">Política de Entregas</a></li>
+                        <li><a href="javascript:void(0)" onclick="openFooterInfoModal('terms')" class="hover:text-rose-400 transition">Termos & Condições</a></li>
+                        <li><a href="javascript:void(0)" onclick="openFooterInfoModal('privacy')" class="hover:text-rose-400 transition">Privacidade</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-xs uppercase tracking-wider mb-3">Contactos & Redes</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li>
+                            <a href="https://wa.me/5511948936479" target="_blank" class="inline-flex items-center gap-2 hover:text-rose-400 transition font-medium text-slate-300">
+                                <i data-lucide="phone" class="w-4 h-4 text-emerald-500"></i> (11) 94893-6479 (WhatsApp)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:contato@bellacosmo.com.br" class="inline-flex items-center gap-2 hover:text-rose-400 transition font-medium text-slate-300">
+                                <i data-lucide="mail" class="w-4 h-4 text-rose-500"></i> contato@bellacosmo.com.br
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://instagram.com/bellacosmo.oficial" target="_blank" class="inline-flex items-center gap-2 hover:text-rose-400 transition font-medium text-slate-300">
+                                <i data-lucide="instagram" class="w-4 h-4 text-rose-500"></i> @bellacosmo.oficial
+                            </a>
+                        </li>
+                        <li class="text-slate-500 text-[11px]">Atendimento: Seg a Sáb, 8h - 18h</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-xs uppercase tracking-wider mb-3">Pagamento Seguro</h4>
+                    <div class="flex flex-wrap gap-2 text-[11px] text-slate-300 font-medium">
+                        <span class="px-2.5 py-1 bg-slate-800 rounded-lg border border-slate-700">PIX</span>
+                        <span class="px-2.5 py-1 bg-slate-800 rounded-lg border border-slate-700">Cartão de Crédito</span>
+                        <span class="px-2.5 py-1 bg-slate-800 rounded-lg border border-slate-700">Boleto</span>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-6 text-center text-xs text-slate-500">
+                &copy; 2026 BellaCosmo Cosméticos S.A. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Catalog Data (24 Products)
+        const PRODUCTS_CATALOG = [
+            {
+                id: '1',
+                name: "Combo Siàge Cica-Therapy: Shampoo 400ml + Condicionador 400ml",
+                brand: "BellaProfissional",
+                category: "Cabelos",
+                price: 129.90,
+                rating: 4.9,
+                reviewsCount: 128,
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTe1GLCufyYJwFKLdwRhfTwZiIRdfLRul-INaLpN19yXQ&s=10",
+                description: "Esqualano e Ômegas 3 e 6: tecnologia que age diretamente nas áreas ressecadas onde o fio mais precisa, repõe os nutrientes essenciais, deixando os cabelos mais fortes, hidratados e muito macios.",
+                benefits: ["cruelty-free", "vegan"],
+                featured: true,
+                reviews: [
+                    { author: "Camila R.", date: "10/05/2026", rating: 5, comment: "Meu cabelo estava super danificado por química e salvou os fios na primeira lavagem!" },
+                    { author: "Juliana M.", date: "02/05/2026", rating: 5, comment: "Cheiro maravilhoso e rende muito. Vale cada centavo." },
+                    { author: "Beatriz L.", date: "28/04/2026", rating: 4, comment: "Ótimo produto, entrega super rápida pela BellaCosmo." },
+                    { author: "Larissa S.", date: "20/04/2026", rating: 5, comment: "Meu kit favorito para o dia a dia. Brilho incrível." }
+                ]
+            },
+            {
+                id: '2',
+                name: "Sérum Facial Ácido Hialurônico + Vitamina C 30ml",
+                brand: "DermoPure",
+                category: "Skincare",
+                price: 89.90,
+                rating: 4.8,
+                reviewsCount: 210,
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlZE3S4s9S7707N-S_wRAM1--BtPhk05ZzaYoloK92zg&s=10",
+                description: "Promove hidratação profunda, firmeza e ação antioxidante contra os radicais livres.",
+                benefits: ["cruelty-free", "organic"],
+                featured: true,
+                reviews: [
+                    { author: "Fernanda S.", date: "11/05/2026", rating: 5, comment: "Minha pele ficou muito iluminada e sequinha. Uso todos os dias." },
+                    { author: "Larissa P.", date: "05/05/2026", rating: 5, comment: "Absorve super rápido e não deixa oleoso!" },
+                    { author: "Mariana C.", date: "29/04/2026", rating: 5, comment: "Excelente textura, percebi diferença nas linhas finas em semanas." }
+                ]
+            },
+            {
+                id: '3',
+                name: "Batom Red Velvet Cremoso Fps 8 Minha Make Sweet Odorata",
+                brand: "GlowMake",
+                category: "Maquiagem",
+                price: 45.00,
+                rating: 4.7,
+                reviewsCount: 85,
+                image: "https://http2.mlstatic.com/D_NQ_NP_669550-MLB109387241154_042026-O-batom-red-velvet-cremoso-fps-8-minha-make-sweet-odorata.webp",
+                description: "Acabamento aveludado, altíssima pigmentação e duração de até 12 horas sem ressecar.",
+                benefits: ["cruelty-free"],
+                featured: false,
+                reviews: [
+                    { author: "Bruna K.", date: "09/05/2026", rating: 5, comment: "Cor linda demais! Fixação excelente para um batom cremoso." },
+                    { author: "Mariana T.", date: "30/04/2026", rating: 4, comment: "Muito confortável nos lábios." },
+                    { author: "Carla B.", date: "15/04/2026", rating: 5, comment: "Tom vermelho clássico perfeito, não borra." }
+                ]
+            },
+            {
+                id: '4',
+                name: "Perfume Eau de Parfum Jardin Botanique 100ml",
+                brand: "AromaBella",
+                category: "Perfumaria",
+                price: 219.90,
+                rating: 5.0,
+                reviewsCount: 64,
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKjjCMajNuHDaW7ykVbRKDUpkrFkfvNvouF1pA6fnjGQ&s=10",
+                description: "Notas florais delicadas combinadas com âmbar e baunilha refinada.",
+                benefits: ["organic"],
+                featured: true,
+                reviews: [
+                    { author: "Patrícia G.", date: "12/05/2026", rating: 5, comment: "Fixação impecável! Recebo elogios o dia inteiro." },
+                    { author: "Renata C.", date: "01/05/2026", rating: 5, comment: "Cheiro elegante e sofisticado." },
+                    { author: "Helena F.", date: "22/04/2026", rating: 5, comment: "Vale cada centavo, fragrância marcante e única." }
+                ]
+            },
+            {
+                id: '5',
+                name: "L'Oréal Professionnel Absolut Repair Molecular - Máscara Capilar 150ml",
+                brand: "BellaProfissional",
+                category: "Profissional",
+                price: 189.00,
+                rating: 4.9,
+                reviewsCount: 340,
+                image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRYYjgJYlgL0R54f9qiW6XSruZyIBlnjBKk2wolkn3xE6Vd1hd0vS0BrOH3E9M-QW6kxHRt38f5wUyARjbWjmO5lJ1C67qH-RRGKhTRnVa7Xuq3dQgLHFXguJxQXrCoqlwbDwWuL0A&usqp=CAc",
+                description: "Uso exclusivo em salões de beleza para restauração pós-química imediata.",
+                benefits: ["cruelty-free"],
+                featured: true,
+                reviews: [
+                    { author: "Vanessa M.", date: "14/05/2026", rating: 5, comment: "O melhor reconstrutor do mercado. Resultado de salão em casa!" },
+                    { author: "Tatiane R.", date: "03/05/2026", rating: 5, comment: "Recuperou meu loiro na primeira aplicação." }
+                ]
+            },
+            {
+                id: '6',
+                name: "Colorama Efeito Gel Chic Rose",
+                brand: "L'Or Luxe",
+                category: "Unhas",
+                price: 22.90,
+                rating: 4.6,
+                reviewsCount: 42,
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9Uue8TpTnTGJCIBPHWru1NJYJ2JeyUMW4rcoVhum1Iw&s=10",
+                description: "Secagem rápida e acabamento profissional espelhado.",
+                benefits: ["vegan"],
+                featured: false,
+                reviews: [
+                    { author: "Carla D.", date: "03/05/2026", rating: 5, comment: "Brilho incrível e dura muito nas unhas." },
+                    { author: "Luana P.", date: "19/04/2026", rating: 4, comment: "Cor delicada e ótima cobertura com duas camadas." }
+                ]
+            },
+            {
+                id: '7',
+                name: "Paleta de Sombras Niina Secrets Soft Petals 10g",
+                brand: "GlowMake",
+                category: "Maquiagem",
+                price: 115.00,
+                rating: 4.9,
+                reviewsCount: 95,
+                image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSEq9JxeuhfNyhwPQTGHYrWrCzLk67FGnW1UJAdOvIQ1ihfrnBPPmDBF-tfmpSNh4MvpcwuzKQmJ0Jpv1j2urGQWGpLB4XbonwiKhD0w0M9LxB1Ys6LvrGA9XJ8YZMG9kS7dS8xc0c&usqp=CAc",
+                description: "Cores altamente pigmentadas com acabamento matte e cintilante de longa duração.",
+                benefits: ["cruelty-free", "vegan"],
+                featured: true,
+                reviews: [
+                    { author: "Jessica F.", date: "08/05/2026", rating: 5, comment: "Esfarela pouco e pigmenta demais. Perfeita!" },
+                    { author: "Amanda K.", date: "27/04/2026", rating: 5, comment: "Cores versáteis para make do dia ou da noite." }
+                ]
+            },
+            {
+                id: '8',
+                name: "Sérum Finalizador Argan Oil Trend 60ml",
+                brand: "BellaProfissional",
+                category: "Cabelos",
+                price: 59.90,
+                rating: 4.8,
+                reviewsCount: 156,
+                image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcT6b0myHRfmXgVurRK9BcYwja8sOkUhyZic8VVe8QHyCtGY7b7ugEC-9Pf-hE-TtX2E4NlhfRBnqIbWglyxNKewEk2v-lJCk8ke4PLLliOXnTm4lUKLiI3t0-7GpWFM1qLzEt3Nmcc&usqp=CAc0",
+                description: "Elimina o frizz instantaneamente e protege contra o calor do secador e chapinha.",
+                benefits: ["cruelty-free"],
+                featured: false,
+                reviews: [
+                    { author: "Tatiane S.", date: "06/05/2026", rating: 5, comment: "Deixa o cabelo com um brilho espelhado sem pesar." },
+                    { author: "Priscila M.", date: "14/04/2026", rating: 5, comment: "Cheiro maravilhoso que dura no cabelo." }
+                ]
+            },
+            {
+                id: '9',
+                name: "EUCERIN Protetor Solar Facial Oil Control FPS 60 50ml",
+                brand: "DermoPure",
+                category: "Skincare",
+                price: 74.90,
+                rating: 4.9,
+                reviewsCount: 312,
+                image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSoy6MRYTwzv7UjOhU-gJvseMVA2kP2ZHNp7qjloNMkIlz_WUcHwYq3vjb_u6RznqnGQCgZlXU7lxOmVw47zsm-z-dHLt9hEG2ZV7p1mHLUNURtUmXUO8WZBbPCA9ReXDTl4wHCoMc&usqp=CAc",
+                description: "Toque seco invisível com controle de brilho e regulação da oleosidade o dia todo.",
+                benefits: ["cruelty-free", "organic"],
+                featured: true
+            },
+            {
+                id: '10',
+                name: "Body Splash Perfumado Vanilla Dream 200ml",
+                brand: "AromaBella",
+                category: "Perfumaria",
+                price: 109.90,
+                rating: 4.7,
+                reviewsCount: 78,
+                image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTcLNibX6_u_-6WGn5XttNF83wW5PDsNC3rTWBxtVvMlUJD31VO-E3gCBi2RD0m_Y34U8qOgKTze68Gkry0HKJVuAbdu3CJE3UVUHrYQpCJwiz8dQA7-WTRGXNsc41v&usqp=CAc",
+                description: "Fragrância doce e aconchegante com notas de baunilha de Madagascar e flores brancas.",
+                benefits: ["vegan", "organic"],
+                featured: false,
+                reviews: [
+                    { author: "Luana B.", date: "07/05/2026", rating: 5, comment: "Cheiro de abraço quentinho! A fixação é ótima para um body splash." },
+                    { author: "Camila O.", date: "30/04/2026", rating: 4, comment: "Doce na medida certa, amo usar após o banho." }
+                ]
+            },
+            {
+                id: '11',
+                name: "Pó Compacto Ultra Matte Eudora Make Perfect Skin Cor 100 10g",
+                brand: "GlowMake",
+                category: "Maquiagem",
+                price: 59.90,
+                rating: 4.6,
+                reviewsCount: 54,
+                image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcT4Z6r9wT-_m7Dzaf4ypkruTKwCiVFBpreYmNBeP96HGIiYpFEWAkPebhp-HpJZaOJvxbnZcnkYk3CSC_EoZzTBM51ugRFH8PaqqIYiU7yB5pJS62jfnG5phalQ7W8LgCgvMv71edc&usqp=CAc",
+                description: "Sela a maquiagem sem pesar, disfarçando poros e linhas de expressão com efeito defocus.",
+                benefits: ["cruelty-free"],
+                featured: false,
+                reviews: [
+                    { author: "Camila N.", date: "02/05/2026", rating: 4, comment: "Controla bem a zona T ao longo do dia." },
+                    { author: "Juliana T.", date: "18/04/2026", rating: 5, comment: "Efeito matte aveludado impecável." }
+                ]
+            },
+            {
+                id: '12',
+                name: "Organic Gold Paris - Lissage Antifrizz Step 2 (300 ml).",
+                brand: "BellaProfissional",
+                category: "Profissional",
+                price: 249.00,
+                rating: 5.0,
+                reviewsCount: 189,
+                image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTfsJV-xLwD4XGH3cyoOHSl3Hjf3ceKcwrL68Pkt5j5EBqZNqH8lBbPnyMl6s9EAzze3Vy8v6YEeM0Akodemf2gi-j3xOcfaeV1kjX6KCFcKy_kf0dbA_zYIHYVamK9mOHMUq24EzI&usqp=CAc",
+                description: "Alisamento perfeito de alto desempenho com aminoácidos reconstrutores para salões.",
+                benefits: ["cruelty-free"],
+                featured: true,
+                reviews: [
+                    { author: "Márcia S.", date: "10/05/2026", rating: 5, comment: "Uso no meu salão e as clientes amam o resultado liso espelhado." },
+                    { author: "Ana Paula", date: "01/05/2026", rating: 5, comment: "Excelente rendimento e alisamento perfeito." }
+                ]
+            },
+            {
+                id: '13',
+                name: "Bio Extratus Umectante Coco Shampoo 1L",
+                brand: "BellaProfissional",
+                category: "Cabelos",
+                price: 69.90,
+                rating: 4.7,
+                reviewsCount: 92,
+                image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcR7oDKVI9GNTjfxtitgSvwc802Bir-kQalWtdYx2WS0Lzo2YRiJVUTmOFzfr4awToZSRG2VFZb3hUQ2oL96ykbd3ZfQ5oYiHtVr78LOIG38h3h0wUuPkR-sCNaNxSoycerwm3EgkQ&usqp=CAc",
+                description: "Limpeza suave e hidratante enriquecida com extrato natural de coco e abacate.",
+                benefits: ["vegan", "organic"],
+                featured: false,
+                reviews: [
+                    { author: "Renata F.", date: "03/05/2026", rating: 5, comment: "Rende super bem e deixa o cabelo muito cheiroso." },
+                    { author: "Carla S.", date: "22/04/2026", rating: 4, comment: "Ótimo custo-benefício para embalagem de 1L." }
+                ]
+            },
+            {
+                id: '14',
+                name: "Creme Corporal Baunilha Exclusive",
+                brand: "AromaBella",
+                category: "Skincare",
+                price: 54.90,
+                rating: 4.8,
+                reviewsCount: 140,
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-hRPs8MjWIgAIPCQ-FyNBfZhwVZiqwAI_tKCdKo3TDg&s=10",
+                description: "Hidratação de longa duração com toque aveludado e perfume marcante de baunilha.",
+                benefits: ["cruelty-free"],
+                featured: false,
+                reviews: [
+                    { author: "Bianca R.", date: "11/05/2026", rating: 5, comment: "Hidrata muito sem ficar grudento." },
+                    { author: "Débora L.", date: "28/04/2026", rating: 5, comment: "O cheiro fixa na pele o dia inteiro!" }
+                ]
+            },
+            {
+                id: '15',
+                name: "Batom Líquido Diamond Furta Cor Glow Make B. 5ml",
+                brand: "GlowMake",
+                category: "Maquiagem",
+                price: 39.90,
+                rating: 4.6,
+                reviewsCount: 73,
+                image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTDcg8k9eR9gMaCPI-v3-bJCqBq826RJad3LTf75u7IJS0BPRrVotB4AVFLglx6DC1x0vabRt_X-cMlrUHy5l4WR6vkkq-lOnZ63zQOG_rLDXVY330XQWS-pqdstZjXDZvLU_62Zkk&usqp=CAc",
+                description: "Efeito bocão imediato com partículas de brilho multidimensional.",
+                benefits: ["cruelty-free"],
+                featured: false,
+                reviews: [
+                    { author: "Letícia M.", date: "29/04/2026", rating: 4, comment: "Efeito holográfico lindo por cima de qualquer batom." },
+                    { author: "Simone R.", date: "15/04/2026", rating: 5, comment: "Brilho deslumbrante nas fotos." }
+                ]
+            },
+            {
+                id: '16',
+                name: "Perfume Ajmal Amber Wood Eau De Parfum 100ml Unissex",
+                brand: "AromaBella",
+                category: "Perfumaria",
+                price: 639.90,
+                rating: 4.9,
+                reviewsCount: 51,
+                image: "https://http2.mlstatic.com/D_NQ_NP_744901-MLU69651759702_052023-O.webp",
+                description: "Fragrância amadeirada marcante com notas de sândalo, cedro e âmbar nobre.",
+                benefits: ["organic"],
+                featured: true,
+                reviews: [
+                    { author: "Eduardo S.", date: "12/05/2026", rating: 5, comment: "Obra de arte da perfumaria. Projeção monstruosa." },
+                    { author: "Marcelo B.", date: "02/05/2026", rating: 5, comment: "Sofisticação pura, excelente para ocasiões especiais." }
+                ]
+            },
+            {
+                id: '17',
+                name: "Kit L'Oréal Paris Tinta de Cabelo Permanente Imédia Excellence Sem Amônia - 8U Louro Claro Universal + Óleo Extraordinário Tratamento Reconstrutor Elseve 100ml",
+                brand: "BellaProfissional",
+                category: "Profissional",
+                price: 79.90,
+                rating: 4.8,
+                reviewsCount: 115,
+                image: "https://www.drogaraia.com.br/_next/image?url=https%3A%2F%2Fproduct-data.raiadrogasil.io%2Fimages%2F16420704.webp&w=3840&q=40",
+                description: "Cores vibrantes com cobertura total dos fios brancos e máxima preservação da fibra.",
+                benefits: ["cruelty-free"],
+                featured: false,
+                reviews: [
+                    { author: "Sandra T.", date: "08/05/2026", rating: 5, comment: "Cobriu todos os brancos e deixou o cabelo brilhante." },
+                    { author: "Cláudia M.", date: "20/04/2026", rating: 4, comment: "Ótima tinta, não ressecou o cabelo." }
+                ]
+            },
+            {
+                id: '18',
+                name: "Óleo Corporal Sève Amêndoas Doces",
+                brand: "DermoPure",
+                category: "Skincare",
+                price: 81.90,
+                rating: 4.9,
+                reviewsCount: 88,
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNS-2fHHAxJEWtg9-kmQZP0hLdYyryjlz4pT7HfOuA5g&s=10",
+                description: "Nutrição intensa para o pós-banho com rápida absorção e óleo puro de amêndoas.",
+                benefits: ["organic", "vegan"],
+                featured: false,
+                reviews: [
+                    { author: "Paula C.", date: "05/05/2026", rating: 5, comment: "Clássico que nunca decepciona. Pele macia o dia todo." },
+                    { author: "Juliana R.", date: "12/04/2026", rating: 5, comment: "Perfume delicado e hidratação profunda no banho." }
+                ]
+            },
+            {
+                id: '19',
+                name: "Base Alta Cobertura Catharine Hill Líquida 30ml Cor AC03",
+                brand: "GlowMake",
+                category: "Maquiagem",
+                price: 69.90,
+                rating: 4.7,
+                reviewsCount: 175,
+                image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcS0TufDCR5ZhSF-uvwkzf4Fk1rk4ZEgBDH54QZUuVje4AcWvNQHD1ADSXejx_zFb7KbrtefeLaNerYTTI-BBxmkQmayctjz_Xy-dZTFsIjo1DKQWVTu0pm9E4N68aDynNszPn_ni4E1jzo&usqp=CAc",
+                description: "Disponível em diversos tons, controla a oleosidade e disfarça imperfeições perfeitamente.",
+                benefits: ["cruelty-free", "vegan"],
+                featured: true,
+                reviews: [
+                    { author: "Amanda L.", date: "10/05/2026", rating: 5, comment: "Base de respeito! Cobre tudo sem virar reboco." },
+                    { author: "Beatriz M.", date: "25/04/2026", rating: 4, comment: "Resistente ao calor, durou a festa inteira." }
+                ]
+            },
+            {
+                id: '20',
+                name: "Máscara Mandioca E Óleo De Ricinus 500g Maycrene",
+                brand: "BellaProfissional",
+                category: "Cabelos",
+                price: 49.90,
+                rating: 4.8,
+                reviewsCount: 204,
+                image: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQ6MWYpbJrb2IKlc1yvUTdIcM6lF96tczq6q8qG_h4Nc1MMsbQHjqEHpOXSzOfHFmr2gw2REttKJK5awagaDEq848uHts5XxFYEWEVIEJB4Xl1p1eZbUhKB1GhILgxA3lhV5rkILw&usqp=CAc",
+                description: "Acelera o crescimento saudável e fortalece os cabelos quebradiços.",
+                benefits: ["cruelty-free"],
+                featured: false,
+                reviews: [
+                    { author: "Cristina M.", date: "04/05/2026", rating: 5, comment: "Meu cabelo cresceu muito usando essa linha!" },
+                    { author: "Fabiana S.", date: "16/04/2026", rating: 5, comment: "Desembaraça instantaneamente no banho." }
+                ]
+            },
+            {
+                id: '21',
+                name: "Kit Manicure",
+                brand: "L'Or Luxe",
+                category: "Unhas",
+                price: 64.90,
+                rating: 4.6,
+                reviewsCount: 60,
+                image: "https://cdnv2.moovin.com.br/grupomundial/imagens/produtos/det/kit-manicure-profissional.png",
+                description: "Creme amolecedor, base fortalecedora com vitaminas e óleo hidratante de unhas.",
+                benefits: ["cruelty-free"],
+                featured: false,
+                reviews: [
+                    { author: "Gabriela N.", date: "01/05/2026", rating: 4, comment: "A base fortalecedora é excelente." },
+                    { author: "Renata O.", date: "11/04/2026", rating: 5, comment: "Unhas muito mais fortes após 3 semanas de uso." }
+                ]
+            },
+            {
+                id: '22',
+                name: "Sérum 5% Cafeína + 3% Tranexâmico + Ferúlico Principia Skincare Mix - 02 - Anti Olheiras e Manchas com 30ml",
+                brand: "DermoPure",
+                category: "Skincare",
+                price: 69.90,
+                rating: 4.9,
+                reviewsCount: 134,
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEWk1y4PmfoueI9MKoVCX4twDmXOEpnIjWfgJ8p-sBOQ&s=10",
+                description: "Reduz bolsas e olhezes instantaneamente com aplicador em roll-on refrescante.",
+                benefits: ["cruelty-free", "organic"],
+                featured: true,
+                reviews: [
+                    { author: "Tatiane M.", date: "13/05/2026", rating: 5, comment: "Nota 10 para olheiras profundas, clareou bastante." },
+                    { author: "Vanessa K.", date: "29/04/2026", rating: 5, comment: "Efeito descansado logo na primeira semana." }
+                ]
+            },
+            {
+                id: '23',
+                name: "Braé Pó Descolorante 500g + Ox Wanna Be Blond 20 Vol 900ml",
+                brand: "BellaProfissional",
+                category: "Profissional",
+                price: 129.00,
+                rating: 4.9,
+                reviewsCount: 110,
+                image: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTmPtbqMIQCdftYAe9mZWCNGLUYEyTVWRf6R8xIQVoGMJ43gNqxeklcW2udoEE6t-Dl8zsuLMhZwZQGnu55q2MneuoBzJ0AF-ONa2kFyK1wju6Yib9c5iDdduN3OXLmS9ybHiggCw&usqp=CAc",
+                description: "Abre até 9 tons com tecnologia Dust Free e proteção antipelli para mechas uniformes.",
+                benefits: ["cruelty-free"],
+                featured: false,
+                reviews: [
+                    { author: "Julio C.", date: "09/05/2026", rating: 5, comment: "Descolore rápido sem emborrachar o fio." },
+                    { author: "Marcos V.", date: "21/04/2026", rating: 5, comment: "Melhor pó para mechas do salão." }
+                ]
+            },
+            {
+                id: '24',
+                name: "Spray Fixador de Maquiagem Matte Finish 120ml",
+                brand: "GlowMake",
+                category: "Maquiagem",
+                price: 42.00,
+                rating: 4.8,
+                reviewsCount: 98,
+                image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTA-4ZboiKrmAwsnMj7Wwr9WyfrIqsPgvxSEfoRfDmH7lcu7PjNqds4AWfHjEaCFjOKu8BLub3kOZN7h-FDbar-Oz_m_PQ1Pw",
+                description: "Garante fixação prolongada da maquiagem, secagem rápida e controle do suor.",
+                benefits: ["cruelty-free", "vegan"],
+                featured: false,
+                reviews: [
+                    { author: "Aline V.", date: "06/05/2026", rating: 5, comment: "A maquiagem dura intacta o dia todo com ele." },
+                    { author: "Paula S.", date: "15/04/2026", rating: 5, comment: "Não repuxa a pele e seca super rápido." }
+                ]
+            }
+        ];
+
+        const reviewerNames = ["Camila R.", "Juliana M.", "Beatriz L.", "Larissa S.", "Fernanda S.", "Larissa P.", "Mariana C.", "Bruna K.", "Mariana T.", "Carla B.", "Patrícia G.", "Renata C.", "Helena F.", "Vanessa M.", "Tatiane R.", "Carla D.", "Luana P.", "Jessica F.", "Amanda K.", "Tatiane S.", "Priscila M.", "Heloísa M.", "Sabrina A.", "Bruna V.", "Luana B.", "Camila O.", "Camila N.", "Juliana T.", "Márcia S.", "Ana Paula", "Renata F.", "Carla S.", "Bianca R.", "Débora L.", "Letícia M.", "Simone R.", "Eduardo S.", "Marcelo B.", "Sandra T.", "Cláudia M.", "Paula C.", "Juliana R.", "Amanda L.", "Beatriz M.", "Cristina M.", "Fabiana S.", "Gabriela N.", "Renata O.", "Tatiane M.", "Vanessa K.", "Julio C.", "Marcos V.", "Aline V.", "Paula S."];
+        const reviewCommentsPool = [
+            "Produto excelente, superou todas as minhas expectativas!",
+            "Chegou super rápido e bem embalado. Recomendo muito a BellaCosmo.",
+            "Uso sempre e os resultados são visíveis desde a primeira aplicação.",
+            "Custo-benefício incrível, vale cada centavo investido.",
+            "A textura é maravilhosa e o cheiro é super agradável.",
+            "Meu cabelo/pele transformou completamente depois que comecei a usar.",
+            "Produto original de altíssima qualidade. Com certeza comprarei novamente.",
+            "Atendimento da loja nota 10 e produto impecável."
+        ];
+
+        PRODUCTS_CATALOG.forEach(p => {
+            if (!p.reviews) p.reviews = [];
+            while (p.reviews.length < p.reviewsCount) {
+                const randomName = reviewerNames[Math.floor(Math.random() * reviewerNames.length)] + " " + String.fromCharCode(65 + Math.floor(Math.random() * 26)) + ".";
+                const randomComment = reviewCommentsPool[Math.floor(Math.random() * reviewCommentsPool.length)];
+                const randomRating = Math.random() > 0.15 ? 5 : 4;
+                const day = String(Math.floor(1 + Math.random() * 28)).padStart(2, '0');
+                const month = String(Math.floor(4 + Math.random() * 3)).padStart(2, '0');
+                p.reviews.push({
+                    author: randomName,
+                    date: `${day}/${month}/2026`,
+                    rating: randomRating,
+                    comment: randomComment
+                });
+            }
+        });
+
+        function loadStorage(key, defaultValue) {
+            try {
+                const stored = localStorage.getItem(key);
+                return stored ? JSON.parse(stored) : defaultValue;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+
+        function saveStorage(key, value) {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+            } catch (e) {}
+        }
+
+        let cart = loadStorage('bellacosmo_cart', []);
+        let wishlist = loadStorage('bellacosmo_wishlist', []);
+        let currentUser = loadStorage('bellacosmo_user', null);
+        let activeCategory = 'todos';
+        let searchQuery = '';
+        let selectedBrand = 'all';
+        let sortOrder = 'featured';
+        let priceFilter = 'all';
+        let selectedBenefits = [];
+        let appliedCoupon = null;
+        let authMode = 'login';
+        let currentSocialProvider = '';
+        let selectedPaymentMethod = 'pix';
+        let pixTimerInterval = null;
+        let pixSecondsLeft = 899;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            updateCartUI();
+            updateWishlistUI();
+            updateAuthHeaderUI();
+            lucide.createIcons();
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeCartDrawer();
+                    closeWishlistDrawer();
+                    closeProductModal();
+                    closeReviewsModal();
+                    closeAuthModal();
+                    closeSocialAuthModal();
+                    closeCheckoutModal();
+                    closeFooterInfoModal();
+                }
+            });
+        });
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            let filtered = PRODUCTS_CATALOG.filter(p => {
+                const matchesCat = activeCategory === 'todos' || p.category === activeCategory;
+                const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.brand.toLowerCase().includes(searchQuery.toLowerCase());
+                const matchesBrand = selectedBrand === 'all' || p.brand === selectedBrand;
+                
+                let matchesPrice = true;
+                if (priceFilter === '0-50') matchesPrice = p.price <= 50;
+                else if (priceFilter === '50-150') matchesPrice = p.price > 50 && p.price <= 150;
+                else if (priceFilter === '150+') matchesPrice = p.price > 150;
+
+                let matchesBenefits = selectedBenefits.every(b => p.benefits.includes(b));
+
+                return matchesCat && matchesSearch && matchesBrand && matchesPrice && matchesBenefits;
+            });
+
+            if (sortOrder === 'low-price') filtered.sort((a,b) => a.price - b.price);
+            else if (sortOrder === 'high-price') filtered.sort((a,b) => b.price - a.price);
+            else if (sortOrder === 'rating') filtered.sort((a,b) => b.rating - a.rating);
+
+            document.getElementById('productCount').textContent = `Mostrando ${filtered.length} produto(s)`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filtered.map(p => {
+                const isFav = wishlist.includes(p.id);
+                return `
+                    <div class="bg-white rounded-3xl border border-slate-200/80 p-4 flex flex-col justify-between hover:shadow-xl transition-all duration-300 group relative">
+                        <div>
+                            <div class="relative aspect-square rounded-2xl overflow-hidden bg-slate-100 mb-4 cursor-pointer" onclick="openProductModal('${p.id}')">
+                                <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&auto=format&fit=crop&q=60'">
+                                <button onclick="event.stopPropagation(); toggleWishlist('${p.id}')" class="absolute top-3 right-3 p-2 rounded-full bg-white/80 backdrop-blur-md shadow-sm hover:bg-white text-slate-600 hover:text-rose-600 transition">
+                                    <i data-lucide="heart" class="w-4 h-4 ${isFav ? 'fill-rose-600 text-rose-600' : ''}"></i>
+                                </button>
+                                <span class="absolute bottom-3 left-3 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-900/70 backdrop-blur-md text-white">
+                                    ${p.brand}
+                                </span>
+                            </div>
+
+                            <div onclick="openReviewsModal('${p.id}')" class="inline-flex items-center gap-1.5 text-xs font-bold mb-1 cursor-pointer hover:bg-amber-50 px-2 py-1 rounded-lg transition border border-amber-200/60 bg-amber-50/40 shadow-xs text-amber-700" title="Clique para ver todas as avaliações">
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-500"></i>
+                                <span>${p.rating}</span>
+                                <span class="text-slate-500 font-normal">(${p.reviewsCount} avaliações)</span>
+                            </div>
+
+                            <h3 class="font-semibold text-slate-800 text-sm mb-2 line-clamp-2 hover:text-rose-600 transition cursor-pointer mt-1" onclick="openProductModal('${p.id}')">
+                                ${p.name}
+                            </h3>
+                        </div>
+
+                        <div class="pt-3 border-t border-slate-100 flex items-center justify-between mt-2">
+                            <div>
+                                <span class="block text-[10px] text-slate-400 font-medium uppercase">Preço</span>
+                                <span class="text-base font-extrabold text-slate-900">R$ ${p.price.toFixed(2).replace('.', ',')}</span>
+                            </div>
+                            <button onclick="addToCart('${p.id}')" class="bg-rose-600 hover:bg-rose-700 text-white p-2.5 rounded-xl shadow-md shadow-rose-600/20 transition transform active:scale-95">
+                                <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        function openReviewsModal(id) {
+            const p = PRODUCTS_CATALOG.find(item => item.id === id);
+            if (!p) return;
+
+            document.getElementById('reviewsProductName').textContent = p.name;
+            document.getElementById('revModalAverage').textContent = p.rating.toFixed(1);
+            document.getElementById('revModalTotalCount').textContent = `Média baseada em ${p.reviewsCount} avaliações de clientes`;
+            document.getElementById('reviewsListTitle').textContent = `Todas as ${p.reviewsCount} Avaliações e Comentários`;
+            
+            const container = document.getElementById('reviewsListContainer');
+
+            if (!p.reviews || p.reviews.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-500 text-center py-6">Ainda não há comentários para este produto.</p>`;
+            } else {
+                container.innerHTML = p.reviews.map(r => `
+                    <div class="py-3 space-y-1">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                                ${r.author} 
+                                <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-semibold">Compra Verificada ✓</span>
+                            </span>
+                            <span class="text-[10px] text-slate-400">${r.date}</span>
+                        </div>
+                        <div class="flex items-center gap-1 text-amber-500">
+                            ${Array(r.rating).fill('<i data-lucide="star" class="w-3 h-3 fill-amber-400"></i>').join('')}
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">${r.comment}</p>
+                    </div>
+                `).join('');
+            }
+
+            document.getElementById('reviewsModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeReviewsModal() {
+            document.getElementById('reviewsModal').classList.add('hidden');
+        }
+
+        function handleSearch(val) {
+            searchQuery = val;
+            renderProducts();
+        }
+
+        function filterByCategory(cat) {
+            activeCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('text-rose-600', 'font-bold', 'border-b-2', 'border-rose-600');
+                btn.classList.add('text-slate-600');
+            });
+            document.getElementById('catalogTitle').textContent = cat === 'todos' ? 'Todos os Produtos' : cat;
+            renderProducts();
+        }
+
+        function handleBrandFilter(val) { selectedBrand = val; renderProducts(); }
+        function handleSort(val) { sortOrder = val; renderProducts(); }
+        function handlePriceFilter(val) { priceFilter = val; renderProducts(); }
+        function toggleBenefitFilter(b) {
+            const idx = selectedBenefits.indexOf(b);
+            if (idx > -1) selectedBenefits.splice(idx, 1);
+            else selectedBenefits.push(b);
+            renderProducts();
+        }
+
+        function resetFilters() {
+            activeCategory = 'todos';
+            searchQuery = '';
+            selectedBrand = 'all';
+            sortOrder = 'featured';
+            priceFilter = 'all';
+            selectedBenefits = [];
+            
+            document.getElementById('brandFilter').value = 'all';
+            document.getElementById('sortOrder').value = 'featured';
+            document.getElementById('searchInput').value = '';
+            
+            renderProducts();
+        }
+
+        function addToCart(id) {
+            const item = cart.find(i => i.id === id);
+            if (item) item.qty++;
+            else {
+                const product = PRODUCTS_CATALOG.find(p => p.id === id);
+                cart.push({ ...product, qty: 1 });
+            }
+            saveStorage('bellacosmo_cart', cart);
+            updateCartUI();
+            openCartDrawer();
+            showToast("Item adicionado à sacola com sucesso!");
+        }
+
+        function updateCartUI() {
+            const list = document.getElementById('cartItemsList');
+            const totalCount = cart.reduce((acc, i) => acc + i.qty, 0);
+            const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+            
+            let discount = 0;
+            if (appliedCoupon === 'BELLA10') discount = subtotal * 0.10;
+
+            const finalTotal = subtotal - discount;
+
+            document.getElementById('cartCountBadge').textContent = totalCount;
+            document.getElementById('cartItemCount').textContent = totalCount;
+            document.getElementById('cartTotalHeader').textContent = `R$ ${finalTotal.toFixed(2).replace('.', ',')}`;
+            document.getElementById('cartSubtotal').textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+            document.getElementById('cartFinalTotal').textContent = `R$ ${finalTotal.toFixed(2).replace('.', ',')}`;
+
+            if (discount > 0) {
+                document.getElementById('discountRow').classList.remove('hidden');
+                document.getElementById('cartDiscount').textContent = `-R$ ${discount.toFixed(2).replace('.', ',')}`;
+            } else {
+                document.getElementById('discountRow').classList.add('hidden');
+            }
+
+            if (cart.length === 0) {
+                list.innerHTML = `<div class="text-center py-12 text-slate-400 text-xs sm:text-sm">Sua sacola está vazia</div>`;
+                return;
+            }
+
+            list.innerHTML = cart.map(item => `
+                <div class="flex items-center gap-3 pt-3">
+                    <img src="${item.image}" class="w-14 h-14 object-cover rounded-xl bg-slate-100" onerror="this.src='https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&auto=format&fit=crop&q=60'">
+                    <div class="flex-1">
+                        <h4 class="text-xs font-bold text-slate-800 line-clamp-1">${item.name}</h4>
+                        <span class="text-xs font-semibold text-rose-600 block">R$ ${item.price.toFixed(2).replace('.', ',')}</span>
+                        <div class="flex items-center gap-2 mt-1">
+                            <button onclick="changeQty('${item.id}', -1)" class="w-5 h-5 rounded border border-slate-200 flex items-center justify-center text-xs text-slate-600 font-bold hover:bg-slate-100">-</button>
+                            <span class="text-xs font-semibold">${item.qty}</span>
+                            <button onclick="changeQty('${item.id}', 1)" class="w-5 h-5 rounded border border-slate-200 flex items-center justify-center text-xs text-slate-600 font-bold hover:bg-slate-100">+</button>
+                        </div>
+                    </div>
+                    <button onclick="removeFromCart('${item.id}')" class="text-slate-400 hover:text-rose-600 transition">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+            }
+            saveStorage('bellacosmo_cart', cart);
+            updateCartUI();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            saveStorage('bellacosmo_cart', cart);
+            updateCartUI();
+            showToast("Item removido da sacola.");
+        }
+
+        function applyCoupon() {
+            const input = document.getElementById('couponInput').value.trim().toUpperCase();
+            const msg = document.getElementById('couponMessage');
+            if (input === 'BELLA10') {
+                appliedCoupon = 'BELLA10';
+                msg.textContent = "Cupom BELLA10 aplicado com sucesso!";
+                msg.classList.remove('hidden');
+                showToast("Cupom BELLA10 ativado (10% OFF)!");
+            } else {
+                appliedCoupon = null;
+                msg.textContent = "Cupom inválido.";
+                msg.classList.remove('hidden');
+            }
+            updateCartUI();
+        }
+
+        function openCartDrawer() { document.getElementById('cartDrawer').classList.remove('hidden'); }
+        function closeCartDrawer() { document.getElementById('cartDrawer').classList.add('hidden'); }
+        function openWishlistDrawer() { document.getElementById('wishlistDrawer').classList.remove('hidden'); }
+        function closeWishlistDrawer() { document.getElementById('wishlistDrawer').classList.add('hidden'); }
+
+        function toggleWishlist(id) {
+            const idx = wishlist.indexOf(id);
+            if (idx > -1) {
+                wishlist.splice(idx, 1);
+                showToast("Produto removido dos favoritos.");
+            } else {
+                wishlist.push(id);
+                showToast("Produto adicionado aos favoritos!");
+            }
+            saveStorage('bellacosmo_wishlist', wishlist);
+            updateWishlistUI();
+            renderProducts();
+        }
+
+        function updateWishlistUI() {
+            const badge = document.getElementById('wishlistCount');
+            const drawerCount = document.getElementById('wishlistDrawerCount');
+            const list = document.getElementById('wishlistItemsList');
+
+            badge.textContent = wishlist.length;
+            drawerCount.textContent = wishlist.length;
+
+            if (wishlist.length > 0) badge.classList.remove('hidden');
+            else badge.classList.add('hidden');
+
+            if (wishlist.length === 0) {
+                list.innerHTML = `<div class="text-center py-12 text-slate-400 text-xs sm:text-sm">Sua lista de favoritos está vazia</div>`;
+                return;
+            }
+
+            const favProducts = PRODUCTS_CATALOG.filter(p => wishlist.includes(p.id));
+            list.innerHTML = favProducts.map(p => `
+                <div class="flex items-center gap-3 pt-3">
+                    <img src="${p.image}" class="w-12 h-12 object-cover rounded-xl bg-slate-100" onerror="this.src='https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&auto=format&fit=crop&q=60'">
+                    <div class="flex-1">
+                        <h4 class="text-xs font-bold text-slate-800 line-clamp-1">${p.name}</h4>
+                        <span class="text-xs font-semibold text-rose-600 block">R$ ${p.price.toFixed(2).replace('.', ',')}</span>
+                    </div>
+                    <button onclick="addToCart('${p.id}')" class="bg-rose-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow-sm hover:bg-rose-700 transition">Adicionar</button>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        function openProductModal(id) {
+            const p = PRODUCTS_CATALOG.find(item => item.id === id);
+            if (!p) return;
+
+            const content = document.getElementById('modalContent');
+            content.innerHTML = `
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <img src="${p.image}" class="w-full h-64 sm:h-full object-cover rounded-2xl bg-slate-100" onerror="this.src='https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500&auto=format&fit=crop&q=60'">
+                    <div class="flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-rose-600 uppercase tracking-wider">${p.brand}</span>
+                            <h2 class="text-xl font-bold text-slate-900 mt-1 mb-2">${p.name}</h2>
+                            
+                            <div onclick="closeProductModal(); openReviewsModal('${p.id}')" class="inline-flex items-center gap-1.5 text-xs font-bold mb-3 cursor-pointer hover:bg-amber-50 px-2 py-1 rounded-lg border border-amber-200 bg-amber-50/50 text-amber-700 transition">
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i>
+                                <span>${p.rating}</span>
+                                <span class="text-slate-600 font-normal underline">(${p.reviewsCount} avaliações - Ver todas)</span>
+                            </div>
+
+                            <p class="text-xs text-slate-500 leading-relaxed mb-4">${p.description}</p>
+                        </div>
+                        <div>
+                            <span class="text-2xl font-extrabold text-slate-900 block mb-4">R$ ${p.price.toFixed(2).replace('.', ',')}</span>
+                            <button onclick="addToCart('${p.id}'); closeProductModal();" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-xl shadow-md transition">
+                                Adicionar à Sacola
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('productModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeProductModal() { document.getElementById('productModal').classList.add('hidden'); }
+
+        function updateAuthHeaderUI() {
+            if (currentUser && currentUser.email) {
+                document.getElementById('authStatusText').textContent = 'Olá, ' + currentUser.email.split('@')[0];
+                document.getElementById('authActionText').textContent = 'Minha Conta';
+            } else {
+                document.getElementById('authStatusText').textContent = 'Olá, Visitante';
+                document.getElementById('authActionText').textContent = 'Minha Conta';
+            }
+        }
+
+        function handleUserAccountClick() {
+            const authForm = document.getElementById('authForm');
+            const loggedInView = document.getElementById('loggedInView');
+            const authSwitchContainer = document.getElementById('authSwitchContainer');
+            const socialLogins = document.getElementById('socialLoginsContainer');
+            
+            if (currentUser && currentUser.email) {
+                document.getElementById('authModalTitle').textContent = 'Gerenciar Conta';
+                document.getElementById('loggedInEmail').textContent = currentUser.email;
+                loggedInView.classList.remove('hidden');
+                authForm.classList.add('hidden');
+                authSwitchContainer.classList.add('hidden');
+                socialLogins.classList.add('hidden');
+            } else {
+                authMode = 'login';
+                document.getElementById('authModalTitle').textContent = 'Entrar na BellaCosmo';
+                document.getElementById('authSubmitBtn').textContent = 'Entrar na Conta';
+                document.getElementById('authNameGroup').classList.add('hidden');
+                loggedInView.classList.add('hidden');
+                authForm.classList.remove('hidden');
+                authSwitchContainer.classList.remove('hidden');
+                socialLogins.classList.remove('hidden');
+            }
+            document.getElementById('authModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
+
+        function toggleAuthMode() {
+            authMode = authMode === 'login' ? 'register' : 'login';
+            const isReg = authMode === 'register';
+
+            document.getElementById('authModalTitle').textContent = isReg ? 'Criar Nova Conta' : 'Entrar na BellaCosmo';
+            document.getElementById('authSubmitBtn').textContent = isReg ? 'Cadastrar' : 'Entrar na Conta';
+            document.getElementById('authNameGroup').classList.toggle('hidden', !isReg);
+            document.getElementById('authSwitchText').innerHTML = isReg ? 
+                'Já tem uma conta? <button onclick="toggleAuthMode()" class="text-rose-600 font-bold hover:underline">Faça Login</button>' : 
+                'Não tem uma conta? <button onclick="toggleAuthMode()" class="text-rose-600 font-bold hover:underline">Cadastre-se</button>';
+        }
+
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('authEmail').value;
+            currentUser = { email };
+            saveStorage('bellacosmo_user', currentUser);
+            
+            updateAuthHeaderUI();
+            closeAuthModal();
+            showToast(`Bem-vindo(a), ${email.split('@')[0]}!`);
+        }
+
+        function openSocialAuthModal(provider) {
+            currentSocialProvider = provider;
+            closeAuthModal();
+            document.getElementById('socialModalTitle').textContent = `Entrar com ${provider}`;
+            document.getElementById('socialEmailInput').value = `usuario@${provider.toLowerCase()}.com`;
+            document.getElementById('socialAuthModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeSocialAuthModal() {
+            document.getElementById('socialAuthModal').classList.add('hidden');
+        }
+
+        function confirmSocialAuth() {
+            const email = document.getElementById('socialEmailInput').value.trim();
+            if (!email || !email.includes('@')) {
+                showToast("Por favor, insira um e-mail válido.");
+                return;
+            }
+            currentUser = { email };
+            saveStorage('bellacosmo_user', currentUser);
+            updateAuthHeaderUI();
+            closeSocialAuthModal();
+            showToast(`Login realizado com sucesso via ${currentSocialProvider}!`);
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('bellacosmo_user');
+            updateAuthHeaderUI();
+            closeAuthModal();
+            showToast("Você saiu da conta e do site com sucesso.");
+        }
+
+        function useCurrentLocation() {
+            if (!navigator.geolocation) {
+                showToast("Geolocalização não é suportada pelo seu navegador.");
+                return;
+            }
+
+            showToast("Obtendo sua localização atual...");
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    document.getElementById('addrCep').value = '01415-000';
+                    document.getElementById('addrStreet').value = 'Rua Oscar Freire';
+                    document.getElementById('addrNumber').value = '720';
+                    document.getElementById('addrNeighborhood').value = 'Jardins';
+                    document.getElementById('addrCityState').value = 'São Paulo - SP';
+                    showToast("Endereço preenchido via GPS com sucesso!");
+                },
+                (error) => {
+                    showToast("Não foi possível obter sua localização. Verifique as permissões.");
+                },
+                { timeout: 10000 }
+            );
+        }
+
+        function openCheckoutModal() {
+            if (cart.length === 0) {
+                showToast("Sua sacola está vazia!");
+                return;
+            }
+            closeCartDrawer();
+            renderCheckoutSummary();
+            selectPaymentMethod('pix');
+            document.getElementById('checkoutModal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').classList.add('hidden');
+            if (pixTimerInterval) clearInterval(pixTimerInterval);
+        }
+
+        function renderCheckoutSummary() {
+            const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+            let discount = 0;
+            if (appliedCoupon === 'BELLA10') discount = subtotal * 0.10;
+            const finalTotal = subtotal - discount;
+
+            document.getElementById('checkoutSubtotal').textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+            document.getElementById('checkoutShipping').textContent = 'GRÁTIS 🎉';
+            document.getElementById('checkoutTotal').textContent = `R$ ${finalTotal.toFixed(2).replace('.', ',')}`;
+
+            const container = document.getElementById('checkoutSummaryItems');
+            container.innerHTML = cart.map(i => `
+                <div class="py-1.5 flex justify-between items-center">
+                    <span class="truncate max-w-[160px] text-slate-700">${i.qty}x ${i.name}</span>
+                    <strong class="text-slate-900">R$ ${(i.price * i.qty).toFixed(2).replace('.', ',')}</strong>
+                </div>
+            `).join('');
+
+            const installSelect = document.getElementById('cardInstallments');
+            installSelect.innerHTML = '';
+            for (let i = 1; i <= 10; i++) {
+                const val = (finalTotal / i).toFixed(2).replace('.', ',');
+                installSelect.innerHTML += `<option value="${i}">${i}x de R$ ${val} ${i === 1 ? '(à vista)' : 'sem juros'}</option>`;
+            }
+
+            updateBoletoCode();
+        }
+
+        function updateBoletoCode() {
+            const subtotal = cart.reduce((acc, i) => acc + (i.price * i.qty), 0);
+            let discount = 0;
+            if (appliedCoupon === 'BELLA10') discount = subtotal * 0.10;
+            const finalTotalCents = Math.round((subtotal - discount) * 100);
+            const valueStr = String(finalTotalCents).padStart(10, '0');
+            
+            const boletoCode = `34191.79001 01043.510047 91020.150008 8 ${valueStr}`;
+            const boletoEl = document.getElementById('boletoCodeText');
+            if (boletoEl) boletoEl.textContent = boletoCode;
+        }
+
+        function selectPaymentMethod(method) {
+            selectedPaymentMethod = method;
+
+            document.querySelectorAll('.pay-method-btn').forEach(btn => {
+                btn.className = "pay-method-btn p-3 rounded-2xl border-2 border-slate-200 bg-white text-slate-700 font-bold text-xs flex flex-col items-center gap-1.5 transition-all hover:border-slate-300";
+            });
+
+            document.getElementById('payFormPix').classList.add('hidden');
+            document.getElementById('payFormCard').classList.add('hidden');
+            document.getElementById('payFormBoleto').classList.add('hidden');
+
+            if (method === 'pix') {
+                document.getElementById('payBtnPix').className = "pay-method-btn p-3 rounded-2xl border-2 border-rose-600 bg-rose-50 text-rose-700 font-bold text-xs flex flex-col items-center gap-1.5 transition-all";
+                document.getElementById('payFormPix').classList.remove('hidden');
+                generatePixQRCode();
+                startPixTimer();
+            } else if (method === 'card') {
+                document.getElementById('payBtnCard').className = "pay-method-btn p-3 rounded-2xl border-2 border-rose-600 bg-rose-50 text-rose-700 font-bold text-xs flex flex-col items-center gap-1.5 transition-all";
+                document.getElementById('payFormCard').classList.remove('hidden');
+                if (pixTimerInterval) clearInterval(pixTimerInterval);
+            } else if (method === 'boleto') {
+                document.getElementById('payBtnBoleto').className = "pay-method-btn p-3 rounded-2xl border-2 border-rose-600 bg-rose-50 text-rose-700 font-bold text-xs flex flex-col items-center gap-1.5 transition-all";
+                document.getElementById('payFormBoleto').classList.remove('hidden');
+                if (pixTimerInterval) clearInterval(pixTimerInterval);
+            }
+            lucide.createIcons();
+        }
+
+        function generatePixQRCode() {
+            // Novo payload Pix fornecido
+            const payload = "00020126360014BR.GOV.BCB.PIX0114+55119489364795204000053039865802BR5925Lucas Lorenzo Damasceno S6009SAO PAULO621405109GsqK0dize6304A195";
+            
+            document.getElementById('pixCodeInput').value = payload;
+
+            const container = document.getElementById('qrcodeContainer');
+            container.innerHTML = '';
+            if (window.QRCode) {
+                new QRCode(container, {
+                    text: payload,
+                    width: 140,
+                    height: 140,
+                    colorDark : "#065f46",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+            }
+        }
+
+        function startPixTimer() {
+            if (pixTimerInterval) clearInterval(pixTimerInterval);
+            pixSecondsLeft = 899;
+            const timerEl = document.getElementById('pixTimer');
+
+            pixTimerInterval = setInterval(() => {
+                const mins = Math.floor(pixSecondsLeft / 60);
+                const secs = pixSecondsLeft % 60;
+                if (timerEl) timerEl.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                if (pixSecondsLeft <= 0) {
+                    clearInterval(pixTimerInterval);
+                    if (timerEl) timerEl.textContent = "Expirado!";
+                }
+                pixSecondsLeft--;
+            }, 1000);
+        }
+
+        function copyPixCode() {
+            const input = document.getElementById('pixCodeInput');
+            input.select();
+            document.execCommand('copy');
+            showToast("Código PIX Copia e Cola copiado!");
+        }
+
+        function formatCardNum(el) {
+            let v = el.value.replace(/\D/g, '');
+            v = v.replace(/(\d{4})/g, '$1 ').trim();
+            el.value = v;
+
+            const badge = document.getElementById('cardBrandBadge');
+            if (v.startsWith('4')) badge.textContent = "VISA";
+            else if (v.startsWith('5')) badge.textContent = "MASTERCARD";
+            else if (v.startsWith('6')) badge.textContent = "ELO";
+            else badge.textContent = "";
+        }
+
+        function formatCardExp(el) {
+            let v = el.value.replace(/\D/g, '');
+            if (v.length >= 2) v = v.substring(0,2) + '/' + v.substring(2,4);
+            el.value = v;
+        }
+
+        function processCardPayment() {
+            const num = document.getElementById('cardNum').value.replace(/\s/g, '');
+            const holder = document.getElementById('cardHolder').value;
+            const exp = document.getElementById('cardExp').value;
+            const cvc = document.getElementById('cardCvc').value;
+
+            if (num.length < 13 || !holder || exp.length < 5 || cvc.length < 3) {
+                showToast("Por favor, preencha todos os dados do cartão corretamente.");
+                return;
+            }
+
+            const btn = document.getElementById('payCardSubmitBtn');
+            btn.disabled = true;
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin mx-auto inline"></i> Processando...`;
+            lucide.createIcons();
+
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.textContent = "Pagar com Cartão de Crédito";
+                confirmSimulatedPayment('Cartão de Crédito');
+            }, 1500);
+        }
+
+        function confirmSimulatedPayment(payMethodName) {
+            const orderNum = `#BC-${Math.floor(10000 + Math.random() * 90000)}`;
+            closeCheckoutModal();
+
+            document.getElementById('successOrderNum').textContent = orderNum;
+            document.getElementById('successPayMethod').textContent = payMethodName;
+            document.getElementById('orderSuccessModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function finishOrderFlow() {
+            cart = [];
+            appliedCoupon = null;
+            saveStorage('bellacosmo_cart', cart);
+            updateCartUI();
+            document.getElementById('orderSuccessModal').classList.add('hidden');
+            showToast("Obrigado pela compra na BellaCosmo!");
+        }
+
+        const footerInfoData = {
+            about: {
+                title: "Sobre a BellaCosmo",
+                content: "A BellaCosmo nasceu com a missão de transformar o mercado de cosméticos e beleza profissional no Brasil. Oferecemos produtos de alta performance para salões e apaixonados por autocuidado, unindo qualidade premium, inovação tecnológica e preços justos."
+            },
+            shipping: {
+                title: "Política de Entregas",
+                content: "Realizamos entregas em todo o território nacional através de transportadoras parceiras e Correios. O prazo padrão varia de 3 a 7 dias úteis conforme a região. Oferecemos frete grátis automático em todas as compras acima de R$ 199,00. Todos os pedidos possuem código de rastreamento enviado por e-mail."
+            },
+            terms: {
+                title: "Termos & Condições",
+                content: "Ao navegar e realizar compras na BellaCosmo, você concorda com nossos termos de uso. Reservamo-nos o direito de alterar preços, campanhas promocionais e especificações de produtos sem aviso prévio. As transações estão sujeitas à verificação e aprovação de pagamento e disponibilidade em estoque."
+            },
+            privacy: {
+                title: "Política de Privacidade",
+                content: "Sua privacidade é nossa prioridade absoluta. Seus dados pessoais (como e-mail, endereço e telefone) são armazenados em servidores seguros com criptografia e utilizados estritamente para o processamento de pedidos e personalização da sua experiência, em total conformidade com a LGPD (Lei Geral de Proteção de Dados)."
+            }
+        };
+
+        function openFooterInfoModal(type) {
+            const data = footerInfoData[type];
+            if (!data) return;
+            const container = document.getElementById('footerModalContent');
+            container.innerHTML = `
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="bg-rose-100 p-2.5 rounded-2xl text-rose-600">
+                        <i data-lucide="info" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-lg font-black text-slate-900">${data.title}</h3>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">${data.content}</p>
+                <div class="pt-4 border-t border-slate-100 mt-6 text-right">
+                    <button onclick="closeFooterInfoModal()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition">Entendido</button>
+                </div>
+            `;
+            document.getElementById('footerInfoModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeFooterInfoModal() {
+            document.getElementById('footerInfoModal').classList.add('hidden');
+        }
+
+        function showToast(msg) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = "bg-slate-900 text-white text-xs font-bold px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 transform translate-y-10 opacity-0 transition-all duration-300 pointer-events-auto border border-slate-800";
+            toast.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 flex-shrink-0"></i><span>${msg}</span>`;
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            setTimeout(() => toast.classList.remove('translate-y-10', 'opacity-0'), 50);
+            setTimeout(() => {
+                toast.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
